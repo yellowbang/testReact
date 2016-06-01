@@ -28,8 +28,8 @@ notesStorage.map(function(note){
 
 
 var saveToServer = function(){
-	var data = [];	
-	noteCollections.map(function(note){data.push(note.attributes)})
+	var data = [];
+	noteCollections.map(function(note){data.push(note.attributes)});
     localStorage.setItem('notesStorage', JSON.stringify(data));
 };
 
@@ -44,11 +44,10 @@ var Checkbox = React.createClass({
 		return(
 			<div>
 				<input type="checkbox" />
-				<p></p>
 			</div>
 		)
 	}
-})
+});
 
 var Like = React.createClass({
 	getInitialState: function(){
@@ -79,14 +78,27 @@ var Like = React.createClass({
 		}
 		return this.renderNormalState();
 	}
-})
+});
 
-var Aaa = React.createClass({
+var YouTube = React.createClass({
+	render: function(){
+		var videoSrc = "http://www.youtube.com/embed/" + this.props.video;
+		var width = 0.8 * window.innerWidth + 'px';
+		var height = 0.8 * window.innerHeight + 'px';
+		return (
+			<div className="youTubeContainer">
+				<iframe className="youTubePlayer" width={width} height={height} src={videoSrc} frameBorder="0" allowFullScreen></iframe>
+			</div>
+		)
+	}
+});
+
+var Note = React.createClass({
 	getInitialState: function(){
 		return {editting: false};
 	},
 	edit: function(){
-		this.setState({editting: true})
+		this.setState({editting: true});
 		console.log('edit');
 	},
 	onSave: function(event){
@@ -100,7 +112,7 @@ var Aaa = React.createClass({
 		this.props.onRemove(this.props.noteIndex);
 	},
     renderDisplay: function(){
-        return (
+    	var returnValue = 
     		<div className="note">
     			<p>{this.props.model.get('text')}</p>
     			<Checkbox></Checkbox>
@@ -112,6 +124,8 @@ var Aaa = React.createClass({
     				</button>
     			</span>
     		</div>
+        return (
+    		returnValue
         )
     },
     renderForm: function(){
@@ -151,7 +165,7 @@ var Notes = React.createClass({
 		return (<div className="board">
             {this.state.notes.map(function(note, i){
                 return (
-                    <Aaa model={note} noteIndex={i} key={i} onRemove={this.remove}></Aaa>
+                    <Note model={note} noteIndex={i} key={i} onRemove={this.remove}></Note>
                 );
             }.bind(this))}
             <button className="btn btn-sm btn-success glyphicon glyphicon-plus" onClick={this.add.bind(null, "New Note")}/>
@@ -159,5 +173,5 @@ var Notes = React.createClass({
 	}
 });
 
-
 ReactDOM.render(<Notes></Notes>, document.getElementById('div1'));
+ReactDOM.render(<YouTube video="c--ORK53RU4"></YouTube>, document.getElementById('div2'));

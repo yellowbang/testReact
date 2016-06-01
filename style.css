@@ -90,3 +90,16 @@ p.normal {
 p.normal:hover {
     color: black;
 }
+
+.youTubeContainer {
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; //16 x 9
+  position: relative;
+  .youTubePlayer {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
